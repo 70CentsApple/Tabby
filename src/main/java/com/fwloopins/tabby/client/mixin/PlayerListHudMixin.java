@@ -92,7 +92,7 @@ public class PlayerListHudMixin {
 					JsonArray usernamesArray = group.getAsJsonObject().getAsJsonArray("usernames");
 
 					for (JsonElement username : usernamesArray) {
-						if (username.getAsString().equals(text) || username.getAsString().equals(uuid)) {
+						if (username.getAsString().equals(text) || username.getAsString().equals(uuid) || text.contains(username.getAsString())) {
 							JsonObject jsonObject = group.getAsJsonObject();
 							Style style = getStyle(jsonObject, text);
 
@@ -141,7 +141,7 @@ public class PlayerListHudMixin {
 		boolean strikethrough = jsonObject.has("strikethrough") && jsonObject.get("strikethrough").getAsBoolean();
 		boolean obfuscated = jsonObject.has("obfuscated") && jsonObject.get("obfuscated").getAsBoolean();
 
-		style.withBold(bold).withItalic(italic).withUnderline(underline).withStrikethrough(strikethrough).withObfuscated(obfuscated);
+		style = style.withBold(bold).withItalic(italic).withUnderline(underline).withStrikethrough(strikethrough).withObfuscated(obfuscated);
 
 		if (colour == null) {
 			return style;
